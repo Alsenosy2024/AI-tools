@@ -89,14 +89,17 @@ body {
   padding: 0 var(--space-4);
 }
 
-/* Header */
+/* Header - Fixed positioning */
 .header {
-  background: white;
+  background: rgba(255, 255, 255, 0.95);
   border-bottom: 1px solid var(--gray-200);
-  position: sticky;
+  position: fixed;
   top: 0;
-  z-index: 50;
-  backdrop-filter: blur(8px);
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .header-content {
@@ -119,8 +122,44 @@ body {
   text-align: center;
   font-size: 1.125rem;
   color: var(--gray-600);
-  margin-bottom: var(--space-8);
+  margin-bottom: var(--space-6);
   font-weight: 400;
+}
+
+/* Search in Header */
+.header-search {
+  margin-bottom: var(--space-8);
+}
+
+.search-container {
+  max-width: 600px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.search-input {
+  width: 100%;
+  padding: var(--space-4) var(--space-6) var(--space-4) var(--space-12);
+  border: 2px solid var(--gray-200);
+  border-radius: var(--radius-xl);
+  font-size: 1rem;
+  background: white;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.search-input:focus {
+  border-color: var(--primary-500);
+  box-shadow: 0 0 0 3px rgb(59 130 246 / 0.1);
+}
+
+.search-icon {
+  position: absolute;
+  left: var(--space-4);
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--gray-400);
+  font-size: 1.25rem;
 }
 
 /* Developer Profile */
@@ -129,7 +168,7 @@ body {
   border: 1px solid var(--gray-200);
   border-radius: var(--radius-2xl);
   padding: var(--space-8);
-  margin-bottom: var(--space-12);
+  margin-bottom: var(--space-8);
   box-shadow: var(--shadow-sm);
 }
 
@@ -223,45 +262,123 @@ body {
   transform: translateY(-1px);
 }
 
-/* Search Section */
-.search-section {
-  margin-bottom: var(--space-12);
-}
-
-.search-container {
-  max-width: 600px;
-  margin: 0 auto;
+/* AI Diploma Card */
+.ai-diploma-card {
+  background: linear-gradient(135deg, #fef3c7 0%, #fbbf24 100%);
+  border: 2px solid var(--gold-400);
+  border-radius: var(--radius-2xl);
+  padding: var(--space-8);
+  margin-top: var(--space-6);
   position: relative;
+  overflow: hidden;
 }
 
-.search-input {
-  width: 100%;
-  padding: var(--space-4) var(--space-6) var(--space-4) var(--space-12);
-  border: 2px solid var(--gray-200);
-  border-radius: var(--radius-xl);
-  font-size: 1rem;
-  background: white;
-  transition: all 0.2s ease;
-  outline: none;
-}
-
-.search-input:focus {
-  border-color: var(--primary-500);
-  box-shadow: 0 0 0 3px rgb(59 130 246 / 0.1);
-}
-
-.search-icon {
+.ai-diploma-card::before {
+  content: '';
   position: absolute;
-  left: var(--space-4);
-  top: 50%;
-  transform: translateY(-50%);
-  color: var(--gray-400);
-  font-size: 1.25rem;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--gold-400) 0%, var(--gold-600) 100%);
+}
+
+.diploma-content {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-6);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.diploma-icon {
+  position: relative;
+  background: white;
+  border-radius: var(--radius-full);
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold-600);
+  flex-shrink: 0;
+  box-shadow: var(--shadow-md);
+}
+
+.sparkle-icon {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: var(--gold-500);
+  color: white;
+  border-radius: var(--radius-full);
+  padding: 2px;
+}
+
+.diploma-info {
+  flex: 1;
+}
+
+.diploma-title {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--gray-900);
+  margin-bottom: var(--space-2);
+}
+
+.diploma-description {
+  color: var(--gray-700);
+  line-height: 1.6;
+  margin-bottom: var(--space-4);
+}
+
+.diploma-features {
+  display: flex;
+  gap: var(--space-2);
+  margin-bottom: var(--space-5);
+  flex-wrap: wrap;
+}
+
+.feature-tag {
+  background: rgba(255, 255, 255, 0.8);
+  color: var(--gray-700);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.diploma-button {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  background: var(--gray-900);
+  color: white;
+  padding: var(--space-3) var(--space-6);
+  border-radius: var(--radius-lg);
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  box-shadow: var(--shadow-md);
+}
+
+.diploma-button:hover {
+  background: var(--gray-800);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Main content spacing to account for fixed header */
+.main-content {
+  padding-top: 600px; /* Adjust based on header height */
 }
 
 /* Filters */
 .filters-section {
   margin-bottom: var(--space-10);
+  background: var(--gray-50);
+  padding: var(--space-8) 0;
 }
 
 .category-filters {
@@ -612,6 +729,12 @@ body {
     gap: var(--space-4);
   }
   
+  .diploma-content {
+    flex-direction: column;
+    text-align: center;
+    gap: var(--space-4);
+  }
+  
   .profile-links {
     justify-content: center;
   }
@@ -629,6 +752,10 @@ body {
   .stats-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+  
+  .main-content {
+    padding-top: 700px; /* Adjust for mobile header height */
+  }
 }
 
 @media (max-width: 480px) {
@@ -640,10 +767,19 @@ body {
     padding: var(--space-4);
   }
   
+  .ai-diploma-card {
+    padding: var(--space-4);
+  }
+  
   .profile-avatar {
     width: 60px;
     height: 60px;
     font-size: 1.5rem;
+  }
+  
+  .diploma-icon {
+    width: 60px;
+    height: 60px;
   }
   
   .stats-grid {
@@ -652,6 +788,10 @@ body {
   
   .tool-card {
     padding: var(--space-4);
+  }
+  
+  .main-content {
+    padding-top: 800px; /* Adjust for smaller mobile header height */
   }
 }
 

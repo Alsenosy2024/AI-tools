@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { Search, Users, Star, ExternalLink, Filter } from 'lucide-react';
+import { Search, Users, Star, ExternalLink, Filter, Calendar, Mail, Globe, GraduationCap, Sparkles } from 'lucide-react';
 import { aiTools, categories } from './data/tools';
 import './App.css';
 
@@ -51,7 +51,9 @@ function App() {
     filtered = searchTools(filtered, searchTerm);
 
     // Apply category filter
-    if (selectedCategory !== 'all') {
+    if (selectedCategory === 'featured') {
+      filtered = filtered.filter(tool => tool.featured);
+    } else if (selectedCategory !== 'all') {
       filtered = filtered.filter(tool => tool.category === selectedCategory);
     }
 
@@ -128,6 +130,20 @@ function App() {
             <h1 className="header-title">أدوات الذكاء الاصطناعي</h1>
             <p className="header-subtitle">مجموعة شاملة من أفضل أدوات الذكاء الاصطناعي لعام 2025</p>
             
+            {/* Search Bar in Header */}
+            <div className="header-search">
+              <div className="search-container">
+                <Search className="search-icon" />
+                <input
+                  type="text"
+                  placeholder="ابحث عن الأدوات... (مثل: ChatGPT، Midjourney، Claude)"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="search-input"
+                />
+              </div>
+            </div>
+            
             {/* Developer Profile */}
             <div className="developer-profile">
               <div className="profile-content">
@@ -137,15 +153,48 @@ function App() {
                   <p className="profile-title">خبير الذكاء الاصطناعي والتكنولوجيا</p>
                   <div className="profile-links">
                     <a href="https://www.linkedin.com/in/alsenosy" className="profile-link primary" target="_blank" rel="noopener noreferrer">
+                      <Globe size={16} />
                       LinkedIn
                     </a>
-                    <a href="mailto:contact@alsenosy.com" className="profile-link secondary">
-                      تواصل معي
-                    </a>
-                    <a href="https://alsenosy.com" className="profile-link outline" target="_blank" rel="noopener noreferrer">
+                    <a href="https://www.alsenosy.com" className="profile-link secondary" target="_blank" rel="noopener noreferrer">
+                      <Globe size={16} />
                       الموقع الشخصي
                     </a>
+                    <a href="mailto:alsenosy15@gmail.com" className="profile-link outline">
+                      <Mail size={16} />
+                      تواصل معي
+                    </a>
+                    <a href="https://calendly.com/alsenosy" className="profile-link outline" target="_blank" rel="noopener noreferrer">
+                      <Calendar size={16} />
+                      احجز اجتماع
+                    </a>
                   </div>
+                </div>
+              </div>
+            </div>
+
+            {/* AI Diploma Special Card */}
+            <div className="ai-diploma-card">
+              <div className="diploma-content">
+                <div className="diploma-icon">
+                  <GraduationCap size={32} />
+                  <Sparkles size={20} className="sparkle-icon" />
+                </div>
+                <div className="diploma-info">
+                  <h3 className="diploma-title">دبلومة الذكاء الاصطناعي للأعمال والمشاريع</h3>
+                  <p className="diploma-description">
+                    انضم إلى دبلومة شاملة في الذكاء الاصطناعي مع د. أحمد السنوسي. تعلم كيفية تطبيق الذكاء الاصطناعي في الأعمال والمشاريع العملية
+                  </p>
+                  <div className="diploma-features">
+                    <span className="feature-tag">🎯 تطبيق عملي</span>
+                    <span className="feature-tag">💼 للأعمال</span>
+                    <span className="feature-tag">🚀 مشاريع حقيقية</span>
+                  </div>
+                  <a href="https://www.pmpmaster.com/course/27/Artificial-Intelligence-for-Projects-and-Business-Diploma" 
+                     className="diploma-button" target="_blank" rel="noopener noreferrer">
+                    <GraduationCap size={18} />
+                    انضم للدبلومة الآن
+                  </a>
                 </div>
               </div>
             </div>
@@ -153,128 +202,103 @@ function App() {
         </div>
       </header>
 
-      {/* Search Section */}
-      <section className="search-section">
-        <div className="container">
-          <div className="search-container">
-            <Search className="search-icon" />
-            <input
-              type="text"
-              placeholder="ابحث عن الأدوات... (مثل: ChatGPT، Midjourney، Claude)"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="search-input"
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* Filters Section */}
-      <section className="filters-section">
-        <div className="container">
-          <div className="category-filters">
-            <button
-              onClick={() => setSelectedCategory('all')}
-              className={`category-button ${selectedCategory === 'all' ? 'active' : ''}`}
-            >
-              🌟 جميع الأدوات
-              <span className="category-count">{categoryStats.total}</span>
-            </button>
-            <button
-              onClick={() => setSelectedCategory('featured')}
-              className={`category-button ${selectedCategory === 'featured' ? 'active' : ''}`}
-            >
-              الأدوات المميزة
-              <span className="category-count">{categoryStats.featured}</span>
-            </button>
-            {categoryStats.categories.map((category) => (
+      {/* Main Content */}
+      <main className="main-content">
+        {/* Filters Section */}
+        <section className="filters-section">
+          <div className="container">
+            <div className="category-filters">
               <button
-                key={category.id}
-                onClick={() => setSelectedCategory(category.id)}
-                className={`category-button ${selectedCategory === category.id ? 'active' : ''}`}
+                onClick={() => setSelectedCategory('all')}
+                className={`category-button ${selectedCategory === 'all' ? 'active' : ''}`}
               >
-                {category.icon} {category.name}
-                <span className="category-count">{category.count}</span>
+                🌟 جميع الأدوات
+                <span className="category-count">{categoryStats.total}</span>
               </button>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Stats Section */}
-      <section className="stats-section">
-        <div className="container">
-          <div className="stats-grid">
-            <div className="stat-card">
-              <div className="stat-number">{categoryStats.total}</div>
-              <div className="stat-label">إجمالي الأدوات</div>
-            </div>
-            <div className="stat-card">
-              <div className="stat-number">{categoryStats.featured}</div>
-              <div className="stat-label">الأدوات المميزة</div>
-            </div>
-            <div className="stat-card">
-              <div className="stat-number">{categoryStats.categories.length}</div>
-              <div className="stat-label">التصنيفات</div>
-            </div>
-            <div className="stat-card">
-              <div className="stat-number">{filteredTools.length}</div>
-              <div className="stat-label">النتائج الحالية</div>
+              <button
+                onClick={() => setSelectedCategory('featured')}
+                className={`category-button ${selectedCategory === 'featured' ? 'active' : ''}`}
+              >
+                الأدوات المميزة
+                <span className="category-count">{categoryStats.featured}</span>
+              </button>
+              {categoryStats.categories.map((category) => (
+                <button
+                  key={category.id}
+                  onClick={() => setSelectedCategory(category.id)}
+                  className={`category-button ${selectedCategory === category.id ? 'active' : ''}`}
+                >
+                  {category.icon} {category.name}
+                  <span className="category-count">{category.count}</span>
+                </button>
+              ))}
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Tools Section */}
-      <main className="tools-section">
-        <div className="container">
-          {selectedCategory === 'all' && !searchTerm && (
-            <>
-              <h2 className="section-title">الأدوات المميزة</h2>
-              <p className="section-subtitle">{categoryStats.featured} أداة</p>
+        {/* Stats Section */}
+        <section className="stats-section">
+          <div className="container">
+            <div className="stats-grid">
+              <div className="stat-card">
+                <div className="stat-number">{categoryStats.total}</div>
+                <div className="stat-label">إجمالي الأدوات</div>
+              </div>
+              <div className="stat-card">
+                <div className="stat-number">{categoryStats.featured}</div>
+                <div className="stat-label">الأدوات المميزة</div>
+              </div>
+              <div className="stat-card">
+                <div className="stat-number">{categoryStats.categories.length}</div>
+                <div className="stat-label">التصنيفات</div>
+              </div>
+              <div className="stat-card">
+                <div className="stat-number">{filteredTools.length}</div>
+                <div className="stat-label">النتائج الحالية</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Tools Section */}
+        <section className="tools-section">
+          <div className="container">
+            <h2 className="section-title">
+              {selectedCategory === 'all' ? 'جميع الأدوات' : 
+               selectedCategory === 'featured' ? 'الأدوات المميزة' :
+               categories.find(cat => cat.id === selectedCategory)?.name || 'الأدوات'}
+            </h2>
+            <p className="section-subtitle">({filteredTools.length} أداة)</p>
+
+            {filteredTools.length > 0 ? (
               <div className="tools-grid">
-                {aiTools.filter(tool => tool.featured).slice(0, 6).map((tool) => (
+                {filteredTools.map((tool) => (
                   <ToolCard key={tool.id} tool={tool} />
                 ))}
               </div>
-            </>
-          )}
-
-          <h2 className="section-title">
-            {selectedCategory === 'all' ? 'جميع الأدوات' : 
-             selectedCategory === 'featured' ? 'الأدوات المميزة' :
-             categories.find(cat => cat.id === selectedCategory)?.name || 'الأدوات'}
-          </h2>
-          <p className="section-subtitle">({filteredTools.length})</p>
-
-          {filteredTools.length > 0 ? (
-            <div className="tools-grid">
-              {filteredTools.map((tool) => (
-                <ToolCard key={tool.id} tool={tool} />
-              ))}
-            </div>
-          ) : (
-            <div className="no-results">
-              <div className="no-results-icon">
-                <Filter size={48} />
+            ) : (
+              <div className="no-results">
+                <div className="no-results-icon">
+                  <Filter size={48} />
+                </div>
+                <h3>لم يتم العثور على أدوات</h3>
+                <p>جرب تغيير مصطلح البحث أو تعديل الفلاتر المطبقة</p>
+                <div className="no-results-actions">
+                  <button 
+                    onClick={() => {
+                      setSearchTerm('');
+                      setSelectedCategory('all');
+                      handleResetFilters();
+                    }}
+                    className="reset-button"
+                  >
+                    إعادة تعيين جميع الفلاتر
+                  </button>
+                </div>
               </div>
-              <h3>لم يتم العثور على أدوات</h3>
-              <p>جرب تغيير مصطلح البحث أو تعديل الفلاتر المطبقة</p>
-              <div className="no-results-actions">
-                <button 
-                  onClick={() => {
-                    setSearchTerm('');
-                    setSelectedCategory('all');
-                    handleResetFilters();
-                  }}
-                  className="reset-button"
-                >
-                  إعادة تعيين جميع الفلاتر
-                </button>
-              </div>
-            </div>
-          )}
-        </div>
+            )}
+          </div>
+        </section>
       </main>
 
       {/* Footer */}
@@ -288,11 +312,14 @@ function App() {
               <a href="https://www.linkedin.com/in/alsenosy" className="footer-link" target="_blank" rel="noopener noreferrer">
                 LinkedIn
               </a>
-              <a href="mailto:contact@alsenosy.com" className="footer-link">
+              <a href="https://www.alsenosy.com" className="footer-link" target="_blank" rel="noopener noreferrer">
+                الموقع الشخصي
+              </a>
+              <a href="mailto:alsenosy15@gmail.com" className="footer-link">
                 تواصل معنا
               </a>
-              <a href="https://alsenosy.com" className="footer-link" target="_blank" rel="noopener noreferrer">
-                الموقع الشخصي
+              <a href="https://calendly.com/alsenosy" className="footer-link" target="_blank" rel="noopener noreferrer">
+                احجز اجتماع
               </a>
             </div>
           </div>
