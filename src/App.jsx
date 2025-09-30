@@ -11,7 +11,7 @@ function App() {
     showFeatured: false,
     showFree: false,
     minUsers: 0,
-    maxUsers: 1000000000
+    maxUsers: Infinity
   });
 
   // Parse user count for sorting and filtering
@@ -19,7 +19,13 @@ function App() {
     if (typeof users !== 'string') return 0;
     if (users.includes('Get instant access')) return 0;
     
-    const num = parseFloat(users);
+    // Extract numbers from the string
+    const numberMatch = users.match(/[\d.]+/);
+    if (!numberMatch) return 0; // Return 0 for non-numeric values instead of NaN
+    
+    const num = parseFloat(numberMatch[0]);
+    if (isNaN(num)) return 0; // Return 0 for NaN values
+    
     if (users.includes('B')) return num * 1000000000;
     if (users.includes('M')) return num * 1000000;
     if (users.includes('K')) return num * 1000;
@@ -117,7 +123,7 @@ function App() {
       showFeatured: false,
       showFree: false,
       minUsers: 0,
-      maxUsers: 1000000000
+      maxUsers: Infinity
     });
   };
 
