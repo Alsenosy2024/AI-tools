@@ -103,7 +103,7 @@ body {
 }
 
 .header-content {
-  padding: var(--space-6) 0;
+  padding: var(--space-4) 0;
 }
 
 .header-title {
@@ -122,13 +122,13 @@ body {
   text-align: center;
   font-size: 1.125rem;
   color: var(--gray-600);
-  margin-bottom: var(--space-6);
+  margin-bottom: var(--space-4);
   font-weight: 400;
 }
 
 /* Search in Header */
 .header-search {
-  margin-bottom: var(--space-8);
+  margin-bottom: var(--space-4);
 }
 
 .search-container {
@@ -167,28 +167,28 @@ body {
   background: white;
   border: 1px solid var(--gray-200);
   border-radius: var(--radius-2xl);
-  padding: var(--space-8);
-  margin-bottom: var(--space-8);
+  padding: var(--space-4);
+  margin-bottom: var(--space-4);
   box-shadow: var(--shadow-sm);
 }
 
 .profile-content {
   display: flex;
   align-items: center;
-  gap: var(--space-6);
+  gap: var(--space-4);
   max-width: 800px;
   margin: 0 auto;
 }
 
 .profile-avatar {
-  width: 80px;
-  height: 80px;
+  width: 60px;
+  height: 60px;
   border-radius: var(--radius-full);
   background: linear-gradient(135deg, var(--primary-500) 0%, var(--gold-500) 100%);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: 700;
   color: white;
   flex-shrink: 0;
@@ -267,8 +267,8 @@ body {
   background: linear-gradient(135deg, #fef3c7 0%, #fbbf24 100%);
   border: 2px solid var(--gold-400);
   border-radius: var(--radius-2xl);
-  padding: var(--space-8);
-  margin-top: var(--space-6);
+  padding: var(--space-4);
+  margin-top: var(--space-3);
   position: relative;
   overflow: hidden;
 }
@@ -286,7 +286,7 @@ body {
 .diploma-content {
   display: flex;
   align-items: flex-start;
-  gap: var(--space-6);
+  gap: var(--space-4);
   max-width: 800px;
   margin: 0 auto;
 }
@@ -295,8 +295,8 @@ body {
   position: relative;
   background: white;
   border-radius: var(--radius-full);
-  width: 80px;
-  height: 80px;
+  width: 60px;
+  height: 60px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -371,7 +371,7 @@ body {
 
 /* Main content spacing to account for fixed header */
 .main-content {
-  padding-top: 600px; /* Adjust based on header height */
+  padding-top: 400px; /* Reduced header height */
 }
 
 /* Filters */
